@@ -1,0 +1,56 @@
+(#effect title_gen --text "실내맵과 필드맵까지 갖추다!" --mode shimmer --duration 4.0 --bg_color "#000000" --text_color "#FFFFFF" --font_path "fonts/BMDOHYEON_TTF.TTF") 실내맵과 필드맵까지 갖추다!
+(#effect multiscreen final_video_ch2.mp4 final_video_ch3.mp4 final_video_ch4.mp4 final_video_ch5.mp4) 지금까지 에이아이로 맵을 만들고 캐릭터를 뽑고 로라로 엔피씨를 양산하고 엑스칼리버제이에스로 실제로 움직이는 게임까지 만들었습니다.
+(#effect multiscreen final_video_ch2.mp4 final_video_ch3.mp4 final_video_ch4.mp4 final_video_ch5.mp4) 오늘은 그 다음 집 안으로 들어가는 이야기로 시작해 보겠습니다.
+(#effect clip 내부로못들어감.mp4) 게임에 마을을 만들었어요.
+(#effect clip 내부로못들어감.mp4) 집도 있고요.
+(#effect clip 내부로못들어감.mp4) 근데 문을 열고 들어가면... 들어갈 수가 없습니다.
+(#effect kenburns (#effect copy_img --input "자드가자.jpeg" --output "자드가자_pixel.png" --pixel_size 2 --palette_size 16)) (#tts "자 드가자") 자 드가자~
+(#effect title_gen --text "못드간다" --mode typing --duration 4.0 --bg_color "#000000" --text_color "#FFFFFF" --font_path "fonts/PF_STARDUST3.0.ttf")아하! 실내 맵이 없어서 못 드가네요.
+(#effect kenburns 레이어구조실내지도.jfif) 이 게임은 타일맵이 아니라 단일 이미지를 레이어로 쓰는 방식이에요.
+(#effect kenburns interior_f1_2.png)그러니까 실내 맵도 이미지가 필요합니다.
+(#effect kenburns (#effect copy_img --input "내놔.jpeg" --output "내놔_pixel.png" --pixel_size 2 --palette_size 16))직접 그릴 실력은 없으니, 에이아이한테 그려달라고 하겠습니다.
+(#effect kenburns interior.png)처음엔 스테이블디퓨전에게 탑뷰 실내 맵을 그려달라고 했더니...
+(#effect kenburns interior2.png)프롬프트를 고도화 해도 이 정도 수준이 최대입니다.
+(#effect kenburns interior_f1_1.png)고품질 이미지를 위해서 재미나이 에이피아이를 사용해보겠습니다.
+(#effect kenburns (#effect copy_img --input "월드컵장례식.jpeg" --output "월드컵장례식_pixel.png" --pixel_size 2 --palette_size 16))이전에는 비용 때문에 시도하지 못했지만 드디어 제가 재취업에 성공했습니다!
+(#effect title_gen --text "어딘가 어색하다..." --mode typing --duration 4.0 --bg_color "#000000" --text_color "#FFFFFF" --font_path "fonts/PF_STARDUST3.0.ttf")아까보다는 나아졌지만 그래도 좀 어색한 이미지들이 만들어졌는데요.
+(#effect kenburns interior4_1.png) 여러차례 프롬프트 수정 끝에 겨우 제대로 된 탑뷰 실내 맵이 나왔습니다.
+(#effect kenburns step1.png)
+(#effect kenburns step2.png)
+(#effect kenburns step3.png)
+(#effect kenburns step4.png)
+(#effect kenburns step5.png)
+(#effect kenburns 좌표지정계단실패1.png)이미지가 만들어졌는데 계단 위치가 마음에 안 들었어요.
+(#effect kenburns 좌표지정계단실패2.png)그래서 에이아이한테 여기 계단 지우고 저기로 옮겨줘라고 했죠.
+(#effect kenburns 좌표지정계단실패3.png)스테이블디퓨전으로도 해보고 재미나이 에이파아이로도 해봤지만.
+(#effect kenburns 영역지정계단실패1.png)정확한 위치를 원하는 방향으로 수정하지는 못하더군요.
+(#effect kenburns 영역지정계단실패2.png)실패
+(#effect kenburns 영역지정계단실패3.png)이것도 실패
+(#effect kenburns 영역지정계단실패4.png)또 실패
+(#effect kenburns 그냥필로우로그림.png)결국 파이썬으로 직접 그렸습니다.
+(#effect kenburns interior4_1.png)이미지가 완성되면 쌤쓰리로 오브젝트를 레이어로 분리하고.
+(#effect kenburns my border.png)벽을 충돌 마스크로 만들어야 해요.
+(#effect kenburns interior4_1_stone wall.png)이미지마다 벽 색상이 달라서 색상 기반과 위치 기반 혼합 전략을 썼습니다.
+(#effect clip 어머니와의대화.mp4)이제 내부지도가 생겼으니 어머니를 만나로 가봅시다.
+(#effect clip 촌장님과의대화.mp4)마을의 두번째 영역에 있는 촌장님도 만나로 가봅시다.
+(#effect clip 잠겨있는문.mp4)데모버전이라 다른 집들은 만들 시간이 없으므로 다른 문들은 이렇게 처리했습니다.
+(#effect kenburns 다른게임필드맵.png)고전알피지 하면 이렇게 아기자기한 필드맵이 있어야 하죠.
+(#effect title_gen --text "AI야 고전RPG 필드맵 그려줘" --mode typing --duration 4.0 --bg_color "#000000" --text_color "#FFFFFF" --font_path "fonts/PF_STARDUST3.0.ttf")그런데 필드맵 그리는 것도 순탄하지 않았어요. 
+(#effect kenburns 예브긴한데너무단조로운필드맵.png)예쁘긴한데 너무 단조로운 이미지가 만들어지더군요.
+(#effect kenburns (#effect copy_img --input "고민짤.jpg" --output "고민짤_pixel.png" --pixel_size 2 --palette_size 16)) 중요한 결정을 해야 했는데요. 필드맵은 타일 방식으로 하기로요.
+(#effect multiscreen grass.png dirt.png forest.png low_mtn.png high_mtn.png water.png) 결국 기존 맵 이미지를 재미나이에 같이 넘겨서 이 화풍으로 타일을 그려줘라고 했습니다.
+(#effect kenburns 탑뷰-RPG-03-26-2026_05_27_PM.png)필드맵 타일 시스템을 만들면서 가장 어려웠던 부분은 경계 처리였어요.
+(#effect kenburns 탑뷰-RPG-03-27-2026_02_55_PM.png)풀밭이 물과 만나는 곳. 숲이 평지와 만나는 곳.
+(#effect kenburns 탑뷰-RPG-03-27-2026_03_45_PM.png)이런 곳들의 경계가 자연스럽게 이어지지 않으면 게임이 굉장히 조잡해 보입니다.
+(#effect kenburns tilewise.png) 그래서 타일와이즈에이아이라는 서비스를 활용했어요.
+(#effect multiscreen dirt_forest_autotile.png dirt_grass_autotile.png dirt_low_mtn_autotile.png dirt_water_autotile.png)기본 타일 이미지만 올리면 게임용 심리스 타일 이미지를 바로 뽑아주는 서비스인데요.
+(#effect kenburns (#effect copy_img --input "깔깔.jpg" --output "깔깔_pixel.png" --pixel_size 2 --palette_size 16))지형 타일을 빠르게 확인하고 실험하는 데 정말 유용했습니다.
+(#effect kenburns pixelmap.png)각 타일 주변에 특정 지형이 몇 방향에 있느냐에 따라 0에서 15번 인덱스를 계산하고.
+(#effect multiscreen dirt_forest_autotile.png dirt_grass_autotile.png dirt_low_mtn_autotile.png dirt_water_autotile.png)그 인덱스에 해당하는 4×4 시트의 셀을 골라 그리는 거예요.
+(#effect clip play.mp4)이건 아까 타일와이즈에이아이에서 다 해주니까 코드에서 인식되도록만 바이브코딩 하면 됩니다. 
+(#effect clip play.mp4)이렇게 해서 필드맵까지 나가서 움직이는게 가능해졌습니다.
+(#effect clip play.mp4)다음엔 뭘하면 좋을까요? 
+(#effect clip play.mp4)배경음악을 작곡해 달라고 에이아이에게 부탁해볼까요? 
+(#effect clip play.mp4)아니면 전투씬을 만들어볼까요? 
+(#effect clip play.mp4)댓글을 달아주세요~ 
+(#effect clip play.mp4)여러분이 원하시는 걸 먼저 시도해 볼게요!"

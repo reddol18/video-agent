@@ -1,0 +1,84 @@
+name: 03 · 머지 후 — 다음 사이클 자동 시작
+
+# test → main PR이 머지된 후 미처리 이슈 확인
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  next-cycle:
+    name: 다음 사이클 확인
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 진행 여부 설정
+        id: check
+        run: echo "proceed=true" >> $GITHUB_OUTPUT
+
+      - name: 미처리 이슈 확인
+        if: steps.check.outputs.proceed == 'true'
+        id: check-issues
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          COUNT=$(gh issue list \
+            --label "needs-implementation" \
+            --state open \
+            --json number \
+            --jq 'length')
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "남은 미처리 이슈: $COUNT 개"
+
+      - name: 다음 사이클 시작 (미처리 이슈 있을 경우)
+        if: steps.check.outputs.proceed == 'true' && steps.check-issues.outputs.count > 0
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # 최우선순위 이슈에 레이블 재부여하여 01-implement.yml 재트리거
+          FIRST_ISSUE=$(gh issue list \
+            --label "needs-implementation" \
+            --state open \
+            --json number,labels \
+            --jq 'sort_by(
+              if (.labels[] | select(.name == "priority-high")) then 0
+              elif (.labels[] | select(.name == "priority-mid")) then 1
+              else 2 end,
+              .number
+            ) | .[0].number')
+
+          echo "다음 사이클 시작: 이슈 #$FIRST_ISSUE 트리거"
+
+          # 레이블 제거 후 재부여로 labeled 이벤트 발생시켜 01-implement.yml 재트리거
+          gh issue edit "$FIRST_ISSUE" --remove-label "needs-implementation"
+          sleep 2
+          gh issue edit "$FIRST_ISSUE" --add-label "needs-implementation"
+
+          gh issue comment "$FIRST_ISSUE" --body "🔄 **다음 사이클 자동 시작**
+
+          이전 배치가 main에 머지됐습니다. 미처리 이슈가 남아있어 새 사이클을 시작합니다."
+
+      - name: 모든 이슈 완료 시 종료 알림
+        if: steps.check.outputs.proceed == 'true' && steps.check-issues.outputs.count == 0
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OWNER_EMAIL: ${{ secrets.OWNER_EMAIL }}
+        run: |
+          echo "✅ 모든 이슈가 처리됐습니다."
+          curl -s --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer $SENDGRID_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data "{
+              \"personalizations\": [{\"to\": [{\"email\": \"$OWNER_EMAIL\"}]}],
+              \"from\": {\"email\": \"noreply@video-agent.dev\", \"name\": \"video-agent CI\"},
+              \"subject\": \"[video-agent] ✅ 모든 이슈 처리 완료\",
+              \"content\": [{\"type\": \"text/plain\", \"value\": \"등록된 모든 이슈가 처리되어 main에 머지됐습니다.\"}]
+            }"

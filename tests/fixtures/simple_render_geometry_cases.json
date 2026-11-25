@@ -1,0 +1,1907 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "canvas_1920x1080_source_1920x1080_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_stretch_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_stretch_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1920x1080_stretch_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 656,
+          "y": 0,
+          "w": 608,
+          "h": 1080
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 34.166666666666664,
+        "top_pct": 0.0,
+        "width_pct": 31.666666666666664,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 656,
+          "y": 0,
+          "w": 608,
+          "h": 1080
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 34.166666666666664,
+        "top_pct": 0.0,
+        "width_pct": 31.666666666666664,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 656,
+          "y": 0,
+          "w": 608,
+          "h": 1080
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 34.166666666666664,
+        "top_pct": 0.0,
+        "width_pct": 31.666666666666664,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 0,
+          "y": 1167,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -108.05555555555554,
+        "width_pct": 100.0,
+        "height_pct": 316.04938271604937,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 0,
+          "y": 1167,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -108.05555555555554,
+        "width_pct": 100.0,
+        "height_pct": 316.04938271604937,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_1080x1920_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 0,
+          "y": 1167,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -108.05555555555554,
+        "width_pct": 100.0,
+        "height_pct": 316.04938271604937,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 656,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 34.166666666666664,
+        "width_pct": 100.0,
+        "height_pct": 31.666666666666664,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 656,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 34.166666666666664,
+        "width_pct": 100.0,
+        "height_pct": 31.666666666666664,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 656,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 34.166666666666664,
+        "width_pct": 100.0,
+        "height_pct": 31.666666666666664,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 1167,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -108.05555555555554,
+        "top_pct": -0.0,
+        "width_pct": 316.04938271604937,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 1167,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -108.05555555555554,
+        "top_pct": -0.0,
+        "width_pct": 316.04938271604937,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.7777777777777777,
+        "scale_y": 1.7777777777777777,
+        "crop": {
+          "x": 1167,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -108.05555555555554,
+        "top_pct": -0.0,
+        "width_pct": 316.04938271604937,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_stretch_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 1.7777777777777777,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_stretch_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 1.7777777777777777,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1920x1080_stretch_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "stretch",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 1.7777777777777777,
+        "crop": null,
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "stretch",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1920_source_1080x1920_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1920,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1920
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 236,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 21.85185185185185,
+        "width_pct": 100.0,
+        "height_pct": 56.2962962962963,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 236,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 21.85185185185185,
+        "width_pct": 100.0,
+        "height_pct": 56.2962962962963,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 0.5625,
+        "scale_y": 0.5625,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 236,
+          "w": 1080,
+          "h": 608
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 21.85185185185185,
+        "width_pct": 100.0,
+        "height_pct": 56.2962962962963,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 420,
+          "y": 0,
+          "w": 1080,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -38.88888888888889,
+        "top_pct": -0.0,
+        "width_pct": 177.77777777777777,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 420,
+          "y": 0,
+          "w": 1080,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -38.88888888888889,
+        "top_pct": -0.0,
+        "width_pct": 177.77777777777777,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1080x1080_source_1920x1080_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1080,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "crop": {
+          "x": 420,
+          "y": 0,
+          "w": 1080,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -38.88888888888889,
+        "top_pct": -0.0,
+        "width_pct": 177.77777777777777,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_contain_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_contain_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_contain_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "contain",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": null,
+        "pad": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "contain",
+        "left_pct": 0.0,
+        "top_pct": 0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_cover_rate_1.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.0,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 10.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_cover_rate_1.5",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 1.5,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 6.666666666666667,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 1.5,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    },
+    {
+      "name": "canvas_1920x1080_source_640x360_cover_rate_2.0",
+      "input": {
+        "canvas": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30
+        },
+        "fit": "cover",
+        "playback_rate": 2.0,
+        "source_size": {
+          "width": 640,
+          "height": 360
+        }
+      },
+      "layer": {
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "opacity": 1.0,
+        "type": "video",
+        "source": "clip.mp4",
+        "source_size": {
+          "width": 640,
+          "height": 360
+        },
+        "scale_x": 3.0,
+        "scale_y": 3.0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080
+        },
+        "pad": null,
+        "playback_rate": 2.0,
+        "rotation_deg": 0
+      },
+      "expected_css": {
+        "mode": "cover",
+        "left_pct": -0.0,
+        "top_pct": -0.0,
+        "width_pct": 100.0,
+        "height_pct": 100.0,
+        "object_fit": "fill"
+      }
+    }
+  ]
+}

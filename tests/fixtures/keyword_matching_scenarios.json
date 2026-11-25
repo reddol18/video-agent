@@ -1,0 +1,137 @@
+{
+  "scenarios": [
+    {
+      "name": "korean_city_night",
+      "scene": {
+        "title": "도시 야경",
+        "description": "서울의 아름다운 야경",
+        "keywords": [
+          "도시",
+          "야경",
+          "서울"
+        ]
+      },
+      "chunks": [
+        {
+          "source_file": "/footage/seoul_night.mp4",
+          "chunk_id": "c1",
+          "start_sec": 0.0,
+          "end_sec": 10.0
+        },
+        {
+          "source_file": "/footage/busan_beach.mp4",
+          "chunk_id": "c2",
+          "start_sec": 0.0,
+          "end_sec": 5.0
+        },
+        {
+          "source_file": "/footage/forest_walk.mp4",
+          "chunk_id": "c3",
+          "start_sec": 0.0,
+          "end_sec": 8.0
+        }
+      ],
+      "expected": {
+        "chunk_id": "c1",
+        "source_file": "/footage/seoul_night.mp4",
+        "match_score": 7.142857142857139
+      }
+    },
+    {
+      "name": "underscore_hyphen_normalize",
+      "scene": {
+        "title": "강아지 산책",
+        "description": "공원에서 산책하는 강아지",
+        "keywords": [
+          "강아지",
+          "공원"
+        ]
+      },
+      "chunks": [
+        {
+          "source_file": "/footage/dog_park_walk.mp4",
+          "chunk_id": "x1",
+          "start_sec": 0.0,
+          "end_sec": 5.0
+        },
+        {
+          "source_file": "/footage/cat-sleeping.mp4",
+          "chunk_id": "x2",
+          "start_sec": 0.0,
+          "end_sec": 3.0
+        }
+      ],
+      "expected": {
+        "chunk_id": "x1",
+        "source_file": "/footage/dog_park_walk.mp4",
+        "match_score": 12.5
+      }
+    },
+    {
+      "name": "stem_dedup",
+      "scene": {
+        "title": "apple",
+        "description": "fresh red apple",
+        "keywords": [
+          "apple",
+          "fruit"
+        ]
+      },
+      "chunks": [
+        {
+          "source_file": "/footage/apple.mp4",
+          "chunk_id": "first",
+          "start_sec": 0.0,
+          "end_sec": 5.0
+        },
+        {
+          "source_file": "/footage/apple.mp4",
+          "chunk_id": "second",
+          "start_sec": 5.0,
+          "end_sec": 10.0
+        },
+        {
+          "source_file": "/footage/banana.mp4",
+          "chunk_id": "b1",
+          "start_sec": 0.0,
+          "end_sec": 5.0
+        }
+      ],
+      "expected": {
+        "chunk_id": "first",
+        "source_file": "/footage/apple.mp4",
+        "match_score": 100.0
+      }
+    },
+    {
+      "name": "image_extension",
+      "scene": {
+        "title": "노을 사진",
+        "description": "황금빛 노을",
+        "keywords": [
+          "노을",
+          "황금"
+        ]
+      },
+      "chunks": [
+        {
+          "source_file": "/footage/sunset_golden.jpg",
+          "chunk_id": "img1",
+          "start_sec": 0.0,
+          "end_sec": 0.0
+        },
+        {
+          "source_file": "/footage/sea.mp4",
+          "chunk_id": "v1",
+          "start_sec": 0.0,
+          "end_sec": 5.0
+        }
+      ],
+      "expected": {
+        "chunk_id": "img1",
+        "source_file": "/footage/sunset_golden.jpg",
+        "match_score": 8.0
+      }
+    }
+  ]
+}

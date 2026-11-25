@@ -1,0 +1,16 @@
+display_information:
+  name: video-agent
+  description: video-agent 파이프라인 알림 봇
+features:
+  bot_user:
+    display_name: video-agent
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - im:write
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

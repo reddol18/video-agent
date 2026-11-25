@@ -1,0 +1,212 @@
+name: 02 · 이팀장 — 리뷰
+
+# needs-review 레이블이 붙을 때 트리거 (노팀장 완료 후)
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  # ── 트리거 확인 + 브랜치 탐색 ────────────────────────────
+  check-kill-switch:
+    name: 브랜치 탐색
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'needs-review'
+    outputs:
+      proceed: 'true'
+      branch: ${{ steps.find-branch.outputs.branch }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: feature 브랜치 탐색
+        id: find-branch
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # 오늘 날짜 기준 feature 브랜치 탐색
+          BRANCH="feature/issue-batch-$(date +%Y%m%d)"
+          if git ls-remote --heads origin "$BRANCH" | grep -q "$BRANCH"; then
+            echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          else
+            # 가장 최근 feature 브랜치
+            BRANCH=$(git branch -r | grep 'feature/issue-batch' | sort | tail -1 | xargs)
+            echo "branch=${BRANCH#origin/}" >> $GITHUB_OUTPUT
+          fi
+
+  # ── 이팀장: 리뷰 ─────────────────────────────────────────
+  review:
+    name: 이팀장 — 코드 리뷰
+    runs-on: ubuntu-latest
+    needs: check-kill-switch
+    if: needs.check-kill-switch.outputs.proceed == 'true'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.check-kill-switch.outputs.branch }}
+          fetch-depth: 0
+
+      - name: needs-review 이슈 목록 수집
+        id: collect-issues
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          ISSUES=$(gh issue list \
+            --label "needs-review" \
+            --state open \
+            --json number,title,body \
+            --jq 'sort_by(.number)')
+          echo "issues=$ISSUES" >> $GITHUB_OUTPUT
+
+      - name: main 대비 변경 diff 추출
+        id: get-diff
+        run: |
+          DIFF=$(git diff origin/main...HEAD -- src/ | head -c 8000)
+          echo "diff<<EOF" >> $GITHUB_OUTPUT
+          echo "$DIFF" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 이팀장 리뷰 (Claude Code Action)
+        id: lee-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            당신은 이팀장입니다. CLAUDE.md의 이팀장 역할 규약을 따르세요.
+
+            ## 리뷰 대상 이슈
+            ${{ steps.collect-issues.outputs.issues }}
+
+            ## 변경된 코드 (main 대비 diff)
+            ${{ steps.get-diff.outputs.diff }}
+
+            ## 지시사항
+            1. docs/technical-design.md를 먼저 읽고 설계 의도를 파악하세요
+            2. 위 diff가 설계 의도와 일치하는지 검토하세요
+            3. 검토 결과를 docs/review-notes.md에 기록하세요
+            4. 결과에 따라 아래 중 하나를 수행하세요:
+
+            **이상 없음:**
+            - docs/review-notes.md에 "✅ 이상 없음" 기록
+            - 파일 마지막 줄에 REVIEW_RESULT=ok 를 별도로 출력하세요
+
+            **문제 발견:**
+            - docs/review-notes.md에 문제 내용 상세 기록
+            - 각 문제를 GitHub Issue로 등록하세요 (gh cli 사용)
+              제목: [리뷰지적] 내용
+              레이블: needs-implementation, priority-high (크리티컬) 또는 priority-mid
+            - 파일 마지막 줄에 REVIEW_RESULT=issues_found 를 별도로 출력하세요
+
+            src/ 파일은 절대 수정하지 마세요.
+
+      - name: 리뷰 결과 파일로 저장
+        id: parse-result
+        run: |
+          # 리뷰 노트에서 결과 판단
+          if grep -q "✅ 이상 없음" docs/review-notes.md; then
+            echo "result=ok" >> $GITHUB_OUTPUT
+          else
+            echo "result=issues_found" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 리뷰 노트 커밋
+        run: |
+          git config user.name "이팀장 (Claude)"
+          git config user.email "noreply@anthropic.com"
+          git add docs/review-notes.md
+          git diff --staged --quiet || git commit -m "docs: 이팀장 리뷰 결과 기록 $(date +%Y%m%d)
+
+          Co-Authored-By: Claude (이팀장) <noreply@anthropic.com>"
+          git push origin "${{ needs.check-kill-switch.outputs.branch }}"
+
+      # ── 이상 없음: PR 생성 ────────────────────────────────
+      - name: PR 생성 (feature → test)
+        if: steps.parse-result.outputs.result == 'ok'
+        id: create-pr
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          BRANCH="${{ needs.check-kill-switch.outputs.branch }}"
+          ISSUE_NUMBERS=$(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '.[].number')
+          CLOSES=$(echo "$ISSUE_NUMBERS" | awk '{print "Closes #"$1}' | tr '\n' '\n')
+          ISSUE_REFS=$(echo "$ISSUE_NUMBERS" | awk '{print "#"$1}' | tr '\n' ' ')
+
+          PR_URL=$(gh pr create \
+            --title "[batch] $(date +%Y%m%d) 이슈 배치 처리 — $ISSUE_REFS" \
+            --body "## 처리된 이슈
+          $CLOSES
+
+          ## 변경 요약
+          $(grep -A 20 "## $(date +%Y%m%d)" docs/review-notes.md | head -20)
+
+          ## 리뷰 결과
+          이팀장 리뷰 완료 — 이상 없음 ✅
+
+          ---
+          🤖 이팀장(Claude)이 자동 생성한 PR입니다." \
+            --base test \
+            --head "$BRANCH")
+
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+
+      - name: needs-review → needs-audit 레이블 변경
+        if: steps.parse-result.outputs.result == 'ok'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          ISSUE_NUMBERS=$(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '.[].number')
+          for NUM in $ISSUE_NUMBERS; do
+            gh issue edit "$NUM" --remove-label "needs-review" --add-label "needs-audit"
+            gh issue comment "$NUM" --body "📐 **이팀장 리뷰 완료 — 이상 없음**
+
+            PR이 생성됐습니다: ${{ steps.create-pr.outputs.pr_url }}
+            박테스터의 테스트를 기다리고 있습니다."
+          done
+
+      # ── 문제 발견: 레이블 되돌리기 ──────────────────────────
+      - name: needs-review → needs-implementation 레이블 변경 (문제 발견 시)
+        if: steps.parse-result.outputs.result == 'issues_found'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          ISSUE_NUMBERS=$(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '.[].number')
+          for NUM in $ISSUE_NUMBERS; do
+            gh issue edit "$NUM" --remove-label "needs-review"
+            gh issue comment "$NUM" --body "📐 **이팀장 리뷰 완료 — 문제 발견**
+
+            리뷰 중 문제가 발견됐습니다. 새 이슈가 등록되었으며 다음 사이클에서 처리됩니다.
+            docs/review-notes.md에서 상세 내용을 확인하세요."
+          done
+
+      # ── 프로덕트 오너에게 메일 보고 ──────────────────────────
+      - name: 프로덕트 오너에게 메일 발송
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OWNER_EMAIL: ${{ secrets.OWNER_EMAIL }}
+        run: |
+          RESULT="${{ steps.parse-result.outputs.result }}"
+          ISSUE_REFS=$(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '[.[].number] | map("#\(.)") | join(", ")')
+
+          if [ "$RESULT" = "ok" ]; then
+            SUBJECT="[video-agent] ✅ 이팀장 리뷰 완료 — 박테스터 테스트 지시 필요"
+            BODY="이팀장 리뷰가 완료됐습니다.\n\n처리 이슈: $ISSUE_REFS\nPR: ${{ steps.create-pr.outputs.pr_url }}\n\n박테스터에게 test 브랜치 테스트를 지시해주세요."
+          else
+            SUBJECT="[video-agent] ⚠️ 이팀장 리뷰 — 문제 발견, 다음 사이클 재처리 예정"
+            BODY="이팀장 리뷰 중 문제가 발견됐습니다.\n\n처리 이슈: $ISSUE_REFS\n\n새 이슈가 등록됐으며 다음 사이클에서 자동 처리됩니다.\ndocs/review-notes.md에서 상세 내용을 확인하세요."
+          fi
+
+          curl -s --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer $SENDGRID_API_KEY" \
+            --header "Content-Type: application/json" \
+            --data "{
+              \"personalizations\": [{\"to\": [{\"email\": \"$OWNER_EMAIL\"}]}],
+              \"from\": {\"email\": \"noreply@video-agent.dev\", \"name\": \"video-agent CI\"},
+              \"subject\": \"$SUBJECT\",
+              \"content\": [{\"type\": \"text/plain\", \"value\": \"$BODY\"}]
+            }"

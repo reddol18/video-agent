@@ -1,0 +1,92 @@
+name: 01 · 노팀장 — 구현
+
+# needs-implementation 레이블이 붙은 이슈가 생성/수정될 때 트리거
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  # ── 노팀장: 구현 ─────────────────────────────────────────
+  implement:
+    name: 노팀장 — 이슈 일괄 구현
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'needs-implementation'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: feature 브랜치 생성
+        run: |
+          BRANCH="feature/issue-batch-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+
+      - name: 미처리 이슈 목록 수집 (우선순위 순)
+        id: collect-issues
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # priority-high → priority-mid → priority-low 순, 이슈번호 오름차순
+          ISSUES=$(gh issue list \
+            --label "needs-implementation" \
+            --state open \
+            --json number,title,body,labels \
+            --jq 'sort_by(
+              if (.labels[] | select(.name == "priority-high")) then 0
+              elif (.labels[] | select(.name == "priority-mid")) then 1
+              else 2 end,
+              .number
+            )')
+          echo "issues=$ISSUES" >> $GITHUB_OUTPUT
+          echo "수집된 이슈:"
+          echo "$ISSUES" | jq -r '.[] | "#\(.number) \(.title)"'
+
+      - name: 노팀장 구현 (Claude Code Action)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            당신은 노팀장입니다. CLAUDE.md의 노팀장 역할 규약을 따르세요.
+
+            ## 처리할 이슈 목록 (우선순위 순)
+            ${{ steps.collect-issues.outputs.issues }}
+
+            ## 지시사항
+            1. 위 이슈를 우선순위 순서대로 모두 처리하세요
+            2. docs/technical-design.md와 docs/development-plan.md를 반드시 먼저 읽고 설계 의도를 파악하세요
+            3. 각 이슈를 해결하는 코드를 src/ 하위에 작성하세요
+            4. 모든 이슈 처리 완료 후 docs/review-notes.md에 변경 요약을 추가하세요
+               형식: `## {날짜} 배치 처리\n- #{이슈번호}: {변경 내용 한 줄}\n`
+            5. src/ 외 파일(docs/technical-design.md, CLAUDE.md 등)은 절대 수정하지 마세요
+
+      - name: 변경사항 커밋 & 푸시
+        run: |
+          git config user.name "노팀장 (Claude)"
+          git config user.email "noreply@anthropic.com"
+          git add src/ docs/review-notes.md pyproject.toml .env.example
+          git diff --staged --quiet || git commit -m "feat: 이슈 배치 처리 $(date +%Y%m%d)
+
+          처리 이슈: $(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '[.[].number] | map("#\(.)") | join(", ")')
+
+          Co-Authored-By: Claude (노팀장) <noreply@anthropic.com>"
+          git push origin "$BRANCH"
+
+      - name: 이슈 레이블 needs-review로 변경
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          ISSUE_NUMBERS=$(echo '${{ steps.collect-issues.outputs.issues }}' | jq -r '.[].number')
+          for NUM in $ISSUE_NUMBERS; do
+            gh issue edit "$NUM" --remove-label "needs-implementation" --add-label "needs-review"
+            gh issue comment "$NUM" --body "🔨 **노팀장 구현 완료**
+
+            \`${{ env.BRANCH }}\` 브랜치에 구현이 완료됐습니다.
+            이팀장 리뷰를 기다리고 있습니다."
+          done

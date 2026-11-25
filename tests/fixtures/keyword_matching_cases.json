@@ -1,0 +1,122 @@
+{
+  "spec": {
+    "algorithm": "rapidfuzz.fuzz.token_set_ratio",
+    "processor": null,
+    "case_sensitive": true,
+    "stem_replace": {
+      "_": " ",
+      "-": " "
+    },
+    "score_range": [
+      0.0,
+      100.0
+    ]
+  },
+  "cases": [
+    {
+      "text": "apple banana cherry",
+      "target": "banana cherry apple",
+      "expected_score": 100.0
+    },
+    {
+      "text": "a b c",
+      "target": "b c a",
+      "expected_score": 100.0
+    },
+    {
+      "text": "a b",
+      "target": "a b c d",
+      "expected_score": 100.0
+    },
+    {
+      "text": "apple",
+      "target": "apple banana cherry",
+      "expected_score": 100.0
+    },
+    {
+      "text": "apple",
+      "target": "banana cherry",
+      "expected_score": 22.22222222222223
+    },
+    {
+      "text": "Hello WORLD",
+      "target": "hello world",
+      "expected_score": 45.45454545454545
+    },
+    {
+      "text": "HELLO",
+      "target": "hello",
+      "expected_score": 0.0
+    },
+    {
+      "text": "자동차 도로",
+      "target": "자동차도로",
+      "expected_score": 54.54545454545455
+    },
+    {
+      "text": "자동차 도로",
+      "target": "자동차 도로",
+      "expected_score": 100.0
+    },
+    {
+      "text": "hello, world!",
+      "target": "hello world",
+      "expected_score": 91.66666666666667
+    },
+    {
+      "text": "",
+      "target": "hello",
+      "expected_score": 0.0
+    },
+    {
+      "text": "",
+      "target": "",
+      "expected_score": 0.0
+    },
+    {
+      "text": "apple",
+      "target": "apple",
+      "expected_score": 100.0
+    },
+    {
+      "text": "도시 야경 서울의 아름다운 야경을 보여주는 영상 도시 야경 서울",
+      "target": "city night view seoul",
+      "expected_score": 12.0
+    },
+    {
+      "text": "도시 야경 서울의 아름다운 야경을 보여주는 영상 도시 야경 서울",
+      "target": "seoul night city",
+      "expected_score": 8.888888888888886
+    },
+    {
+      "text": "hello1 world2",
+      "target": "world2 hello1",
+      "expected_score": 100.0
+    },
+    {
+      "text": "강아지 산책",
+      "target": "강아지가 공원에서 산책",
+      "expected_score": 66.66666666666666
+    },
+    {
+      "text": "apple banana cherry",
+      "target": "banana grape kiwi",
+      "expected_score": 61.111111111111114
+    },
+    {
+      "text": "the quick brown fox jumps over the lazy dog and runs into the deep forest",
+      "target": "fox and dog and lazy forest are quick brown the the",
+      "expected_score": 95.1219512195122
+    },
+    {
+      "text": "a",
+      "target": "a b c d e",
+      "expected_score": 100.0
+    },
+    {
+      "text": "a b c",
+      "target": "a",
+      "expected_score": 100.0
+    }
+  ]
+}

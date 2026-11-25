@@ -1,0 +1,78 @@
+[project]
+name = "video-agent"
+version = "0.1.0"
+description = "AI 기반 영상 자동 편집 파이프라인"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.136.0",
+    "ffmpeg-python>=0.2.0",
+    "google-cloud-texttospeech>=2.34.0",
+    "google-genai>=1.66.0",
+    # #315 — 자연어 편집(Phase 7)이 LLM 응답을 RFC 6902 JSON Patch 로 받아
+    #   RenderSpec dict 에 적용한다. 표준 구현체(1.33+ 안정 버전)를 사용한다.
+    "jsonpatch>=1.33",
+    "playwright>=1.51.0",
+    "pydub>=0.25.1",
+    "python-dotenv>=1.2.2",
+    "pillow>=11.0.0",
+    "python-multipart>=0.0.26",
+    # #311/#328 — 키워드 매칭 알고리즘은 rapidfuzz.fuzz.token_set_ratio 결과를 fixture로
+    # 못박아 프론트 TS 미러와 동등성을 검증한다. 4.x 메이저 버전업 시 점수 의미가
+    # 바뀔 가능성이 있어 상한을 명시. 3.x 마이너 변경에서의 점수 변화는 CI parity
+    # 검증(test.yml)이 즉시 감지한다.
+    "rapidfuzz>=3.0.0,<4.0.0",
+    # Typecast TTS provider — 동기 HTTP(POST /v1/text-to-speech, GET /v2/voices) 호출.
+    "requests>=2.32.5",
+    "rich>=14.3.3",
+    "uvicorn>=0.45.0",
+    "websockets>=16.0",
+]
+
+[project.optional-dependencies]
+# 단위 테스트 실행 (RenderSpec 변환기 #302 매트릭스 등)
+# Pydantic 모델 → TS 타입 자동 생성 (#304) — `scripts/gen_ts_types.sh` 가 사용한다.
+#   pydantic-to-typescript 는 내부적으로 Node CLI `json2ts` 를 호출하므로
+#   web/frontend 의 devDependency `json-schema-to-typescript` 가 함께 설치돼야 한다.
+# scikit-image 는 골든 테스트 #319 SSIM 보조 지표 산출용. 미설치 시 폴백 구현이
+#   자동으로 동작하므로 필수는 아니나 정확한 SSIM 점수를 원하면 설치.
+# 설치: uv pip install "video-agent[dev]"
+dev = [
+    "pytest>=8.0.0",
+    "pydantic-to-typescript>=2.0.0",
+    "scikit-image>=0.26.0",
+]
+
+# 커스텀 영상 클립 라이브러리에서 YouTube 등 플랫폼 링크 다운로드
+# 설치: uv pip install "video-agent[cliplib]"
+# 미설치 시 .mp4/.webm/.gif 처럼 영상 파일을 직접 가리키는 URL 은 그대로 등록되고,
+# 플랫폼 링크만 설치 안내 메시지와 함께 400 으로 거부된다 (500 아님).
+cliplib = [
+    "yt-dlp>=2026.7.4",
+]
+
+# 로컬 피사체 탐지 기반 동적 크롭 (숏폼 생성 품질 향상)
+# 설치: uv pip install "video-agent[tracking]"
+# 미설치 시 정적 크롭(description 기반)으로 자동 폴백
+tracking = [
+    "ultralytics>=8.0.0",   # YOLOv8-nano 피사체 탐지 (COCO: 사람/고양이/강아지)
+    "mediapipe>=0.10.0",    # YOLOv8 폴백용 사람 자세 추정
+    "opencv-python>=4.8.0", # 프레임 추출 (ultralytics/mediapipe 공통 의존성)
+]
+
+# TTS WAV에서 단어별 타임스탬프를 추출하여 (#sync) 지시어 기반 영상-음성 정밀 싱크 지원
+# 설치: uv pip install "video-agent[sync]"
+# 미설치 시 sync_word_sec 추출을 건너뛰고 duration/2 폴백 사용
+sync = [
+    "faster-whisper>=1.0.0",  # Whisper 기반 단어 단위 타임스탬프 추출 (small 모델 사용)
+]
+
+# 이미지 → Ken Burns 동적 클립 변환 (footage/ 폴더에 이미지가 있을 때 사용)
+# 설치: uv pip install "video-agent[ken-burns]"
+# 미설치 시 footage_indexer.py가 이미지 파일 변환을 건너뛰고 경고를 출력함
+ken-burns = [
+    "moviepy>=2.2.1",        # Ken Burns 효과 적용 VideoClip 생성
+    "opencv-python>=4.8.0",  # 이미지 읽기/crop/resize (ken_burns.py 의존성)
+    "matplotlib>=3.7.0",     # ken_burns.py 내부 시각화 유틸 의존성
+    "tqdm>=4.65.0",          # ken_burns.py 진행 표시줄 의존성
+]

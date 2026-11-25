@@ -1,0 +1,202 @@
+{
+  "_meta": {
+    "version": 3,
+    "description": "씬 태그 시스템 빌트인 사전 (#208 + #215 + #207 1차). 각 태그는 effects.{text_preset,filter,motion,graphic_overlay}로 효과 세트를 정의한다. #215에서 filter/graphic_overlay 부분 연결 완료. #207 1차에서 motion(shake/clip_zoom) 머지 완료 — crash 태그는 motion 효과 활성화. slowmo는 #207 후속 사이클로 분리. POV 필터는 #219로 분리되어 pov 태그는 _pending=['filter'] 유지.",
+    "depends_on": {
+      "text_preset": "https://github.com/reddol18/video_agent/issues/204",
+      "graphic_overlay": "https://github.com/reddol18/video_agent/issues/205",
+      "filter": "https://github.com/reddol18/video_agent/issues/206",
+      "motion": "https://github.com/reddol18/video_agent/issues/207",
+      "pov_filter": "https://github.com/reddol18/video_agent/issues/219"
+    }
+  },
+  "tags": {
+    "narrative": {
+      "label": "내러티브",
+      "description": "일상/담담 톤. 가벼운 흰색 텍스트 자막.",
+      "effects": {
+        "text_preset": "builtin-narrative"
+      }
+    },
+    "witty": {
+      "label": "위트",
+      "description": "당황/강조/리액션. 노란 두꺼운 텍스트.",
+      "effects": {
+        "text_preset": "builtin-witty"
+      }
+    },
+    "horror": {
+      "label": "공포",
+      "description": "공포·경고·분노 분위기. 붉은 텍스트 + 어두운 horror 필터 + 스포트라이트 오버레이.",
+      "effects": {
+        "text_preset": "builtin-horror",
+        "filter": {
+          "filter_type": "horror",
+          "intensity": 0.7,
+          "params": {}
+        },
+        "graphic_overlay": {
+          "type": "spotlight",
+          "start_sec": 0.0,
+          "end_sec": 2.0,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "darkness": 0.65,
+            "radius": 0.35
+          }
+        }
+      }
+    },
+    "crash": {
+      "label": "충돌",
+      "description": "충격 순간. 위트 텍스트 + 강한 흔들림(shake heavy) 모션.",
+      "effects": {
+        "text_preset": "builtin-witty",
+        "motion": {
+          "motion_type": "shake",
+          "start_sec": 0.0,
+          "duration_sec": 0.8,
+          "params": {
+            "intensity": 1.0
+          }
+        }
+      }
+    },
+    "alert": {
+      "label": "경고",
+      "description": "경고/주의 알림. 위트 텍스트 + 경고 그래픽 오버레이.",
+      "effects": {
+        "text_preset": "builtin-witty",
+        "graphic_overlay": {
+          "type": "alert",
+          "start_sec": 0.0,
+          "end_sec": 2.0,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "text": "경고",
+            "style": "warning"
+          }
+        }
+      }
+    },
+    "flashback": {
+      "label": "회상",
+      "description": "과거 회상 장면. 내러티브 텍스트 + 빛바랜 flashback 필터.",
+      "effects": {
+        "text_preset": "builtin-narrative",
+        "filter": {
+          "filter_type": "flashback",
+          "intensity": 0.8,
+          "params": {}
+        }
+      }
+    },
+    "vivid": {
+      "label": "선명",
+      "description": "채도·대비 강화. 내러티브 텍스트 + vivid 필터.",
+      "effects": {
+        "text_preset": "builtin-narrative",
+        "filter": {
+          "filter_type": "vivid",
+          "intensity": 0.7,
+          "params": {}
+        }
+      }
+    },
+    "reaction": {
+      "label": "리액션",
+      "description": "당황·놀람 강한 리액션. 위트 텍스트 + 만화풍 리액션 오버레이.",
+      "effects": {
+        "text_preset": "builtin-witty",
+        "graphic_overlay": {
+          "type": "reaction",
+          "start_sec": 0.0,
+          "end_sec": 1.5,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "icon_type": "thunder"
+          }
+        }
+      }
+    },
+    "nightvision": {
+      "label": "야간투시",
+      "description": "초록 nightvision 필터 + 스포트라이트 오버레이.",
+      "effects": {
+        "filter": {
+          "filter_type": "nightvision",
+          "intensity": 0.8,
+          "params": {}
+        },
+        "graphic_overlay": {
+          "type": "spotlight",
+          "start_sec": 0.0,
+          "end_sec": 2.0,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "darkness": 0.7,
+            "radius": 0.35
+          }
+        }
+      }
+    },
+    "pov": {
+      "label": "1인칭 시점",
+      "description": "POV 줌·왜곡 + 스포트라이트 오버레이. (POV 필터는 #219 후속.)",
+      "effects": {
+        "graphic_overlay": {
+          "type": "spotlight",
+          "start_sec": 0.0,
+          "end_sec": 2.0,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "darkness": 0.8,
+            "radius": 0.3
+          }
+        },
+        "_pending": ["filter"]
+      }
+    },
+    "smell": {
+      "label": "냄새",
+      "description": "초록 냄새 표현 오버레이 + 위트 텍스트.",
+      "effects": {
+        "text_preset": "builtin-witty",
+        "graphic_overlay": {
+          "type": "smell",
+          "start_sec": 0.0,
+          "end_sec": 2.5,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "color": "green",
+            "intensity": 0.6
+          }
+        }
+      }
+    },
+    "target": {
+      "label": "조준",
+      "description": "조준선/크로스헤어 오버레이 + 위트 텍스트.",
+      "effects": {
+        "text_preset": "builtin-witty",
+        "graphic_overlay": {
+          "type": "target",
+          "start_sec": 0.0,
+          "end_sec": 2.0,
+          "x": 0.5,
+          "y": 0.5,
+          "params": {
+            "marker_type": "crosshair",
+            "color": "#ff3030"
+          }
+        }
+      }
+    }
+  }
+}

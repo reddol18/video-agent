@@ -1,0 +1,119 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>TTS 원본 진단/복구</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 24px; background:#111; color:#eee; }
+  h1 { font-size: 18px; }
+  button { font-size: 15px; padding: 10px 18px; border-radius: 6px; border: 0;
+           background:#4c7ef3; color:#fff; cursor:pointer; margin-right:8px; }
+  button.alt { background:#666; }
+  button:disabled { background:#444; cursor:default; }
+  #log { margin-top:16px; font-family: ui-monospace, Menlo, monospace; font-size: 12px;
+         white-space: pre-wrap; line-height:1.55; max-height:65vh; overflow:auto;
+         background:#000; padding:12px; border-radius:6px; }
+  .ok { color:#5ad469; } .bad { color:#ff6b6b; } .dim { color:#888; } .hi { color:#ffd166; }
+</style>
+
+<h1>IndexedDB 진단 · TTS 원본 복구</h1>
+<p class="dim">먼저 <b>진단</b>을 눌러 무엇이 남아 있는지 확인합니다.</p>
+<button id="diag">① 진단</button>
+<button id="go" class="alt">② 복구 실행</button>
+<div id="log"></div>
+
+<script type="module">
+const PROJECT_ID = "2d58ca47-b4c0-4b97-859d-ed9a94a8f355";
+const logEl = document.getElementById("log");
+const say = (m, cls="") => {
+  const d = document.createElement("div");
+  if (cls) d.className = cls;
+  d.textContent = m;
+  logEl.appendChild(d); logEl.scrollTop = logEl.scrollHeight;
+};
+
+async function listDatabases() {
+  if (indexedDB.databases) { try { return await indexedDB.databases(); } catch { return []; } }
+  return [];
+}
+function openDb(name, version) {
+  return new Promise((res, rej) => {
+    // version 미지정으로 열어야 기존 스키마를 그대로 본다(업그레이드 유발 금지)
+    const r = indexedDB.open(name);
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+    r.onblocked = () => rej(new Error("blocked — 에디터 탭을 닫고 다시 시도"));
+  });
+}
+const getAll = (db, store, fn) => new Promise((res) => {
+  try {
+    const q = db.transaction(store, "readonly").objectStore(store)[fn]();
+    q.onsuccess = () => res(q.result); q.onerror = () => res([]);
+  } catch { res([]); }
+});
+
+document.getElementById("diag").onclick = async () => {
+  logEl.textContent = "";
+  say(`origin: ${location.origin}`, "hi");
+  const dbs = await listDatabases();
+  say(`이 origin의 DB 목록: ${dbs.length ? dbs.map(d=>`${d.name}(v${d.version})`).join(", ") : "(조회 불가 또는 없음)"}`);
+
+  let db;
+  try { db = await openDb("video-agent"); }
+  catch (e) { say("video-agent DB 열기 실패: " + e, "bad"); return; }
+  say(`video-agent 버전: ${db.version}`);
+  say(`스토어: ${[...db.objectStoreNames].join(", ") || "(없음)"}`);
+
+  if (![...db.objectStoreNames].includes("ttsAudio")) {
+    say("ttsAudio 스토어가 없습니다 → 이 브라우저엔 음성이 저장된 적이 없습니다.", "bad");
+    return;
+  }
+  const keys = await getAll(db, "ttsAudio", "getAllKeys");
+  say(`ttsAudio 전체 키: ${keys.length}개`, keys.length ? "ok" : "bad");
+  if (keys.length) {
+    const prefixes = {};
+    for (const k of keys) { const p = String(k).split(":")[0]; prefixes[p] = (prefixes[p]||0)+1; }
+    say("프로젝트별 개수:");
+    for (const [p,c] of Object.entries(prefixes)) {
+      const mark = p === PROJECT_ID ? "  ← 우리 프로젝트" : "";
+      say(`   ${p} : ${c}개${mark}`, p === PROJECT_ID ? "ok" : "dim");
+    }
+    say("샘플 키: " + keys.slice(0,5).map(String).join(" | "), "dim");
+  }
+  // projects 스토어도 확인 — 어떤 프로젝트를 이 브라우저가 알고 있나
+  if ([...db.objectStoreNames].includes("projects")) {
+    const ps = await getAll(db, "projects", "getAllKeys");
+    say(`projects 스토어 키 ${ps.length}개: ` + ps.slice(0,8).map(String).join(", "), "dim");
+  }
+};
+
+document.getElementById("go").onclick = async () => {
+  const btn = document.getElementById("go"); btn.disabled = true;
+  try {
+    const db = await openDb("video-agent");
+    const keys = await getAll(db, "ttsAudio", "getAllKeys");
+    const mine = keys.filter(k => String(k).startsWith(PROJECT_ID + ":"));
+    say(`복구 대상 ${mine.length}개`, mine.length ? "ok" : "bad");
+    if (!mine.length) { say("대상이 없어 중단합니다. ① 진단 결과를 Claude에게 알려주세요.", "bad"); btn.disabled=false; return; }
+    let ok=0, fail=0, skip=0;
+    for (const key of mine) {
+      const sceneId = Number(String(key).split(":")[1]);
+      if (!Number.isFinite(sceneId)) { skip++; continue; }
+      const blob = await new Promise((res) => {
+        const q = db.transaction("ttsAudio","readonly").objectStore("ttsAudio").get(key);
+        q.onsuccess = () => res(q.result); q.onerror = () => res(undefined);
+      });
+      if (!blob || !blob.size) { skip++; say(`씬 ${sceneId}: 비어 있음`, "dim"); continue; }
+      const ext = (blob.type||"").includes("mpeg") ? "mp3" : "wav";
+      const fd = new FormData();
+      fd.append("file", blob, `scene_${String(sceneId).padStart(3,"0")}.${ext}`);
+      try {
+        const r = await fetch(`/api/projects/${PROJECT_ID}/scenes/${sceneId}/tts-upload`, { method:"POST", body: fd });
+        if (r.ok) { ok++; say(`씬 ${sceneId}: 완료 (${(blob.size/1024).toFixed(0)}KB ${ext})`, "ok"); }
+        else { fail++; say(`씬 ${sceneId}: HTTP ${r.status} ${(await r.text()).slice(0,100)}`, "bad"); }
+      } catch(e) { fail++; say(`씬 ${sceneId}: ${e}`, "bad"); }
+    }
+    say(""); say(`끝. 성공 ${ok} · 실패 ${fail} · 건너뜀 ${skip}`, ok?"ok":"bad");
+    say("이 결과를 Claude에게 알려주세요.");
+  } catch(e) { say("실패: "+e, "bad"); }
+  btn.disabled = false;
+};
+</script>

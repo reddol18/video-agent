@@ -1,0 +1,76 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# 보안 — API 키, 인증 파일
+.env
+gcp-credentials.json
+gcp_key.json
+*.code-workspace
+
+# 파이프라인 산출물
+output/
+cache/
+footage/
+
+# 백업 파일
+*.json.bak.*
+
+# 임시 미리보기 파일
+preview_*.mp4
+
+# 에이전트 상태 파일 (로컬 전용)
+.state/
+
+# 골든 테스트 (#305) — 실행 산출물은 커밋하지 않음
+tests/golden/_working/
+tests/golden/_failures/
+
+# 에이전트 로그
+agents-cron/*.log
+projects/
+footage.zip
+secrets.zip
+dron_shorts/
+*.zip
+
+# macOS 메타데이터
+.DS_Store
+**/.DS_Store
+
+# 외부 도구 / 리소스 (로컬 전용)
+FramePack/
+resources/
+gfpgan/
+# 로컬 ffmpeg 빌드 (src/utils/ffmpeg_utils.py 가 있으면 우선 사용)
+tools/ffmpeg-*/
+
+# 로컬 백업 (.env 백업은 키가 들어 있을 수 있음)
+.env.bak*
+*.bak-*
+
+# 웹 앱 런타임 데이터 (프로젝트별 state/footage — 커밋 대상 아님)
+web/data/
+backups/
+web/.backend.log
+web/frontend/.vite.log
+web/frontend/.backend.log
+
+# 복구된 시나리오 임시 파일 (로컬 전용)
+recovered_scenario_*.txt
+
+# 외부 출처 효과음(재배포 미확인) — 로컬 전용, 공개 저장소에서 제외 (#418)
+assets/sfx_presets/sad-trombone/sad-trombone_seed0.wav
+assets/sfx_presets/pencil-check/pencil-check_imported.wav
+assets/sfx_presets/mouse-click/mouse-click_imported.wav
+# 실제 촬영·녹화 소재와 모델 가중치 — 저장소에 넣지 않음(로컬 전용)
+/projects2/
+/projects3/
+/yolov8n.pt

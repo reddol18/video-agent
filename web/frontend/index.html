@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- #310 — 텍스트 오버레이 클라 합성용 폰트. 백엔드 PIL 이 같은 family 명을 탐색하므로
+         브라우저와 백엔드 사이의 폰트 메트릭 차이를 최소화한다. 미세한 anti-aliasing 차이는
+         "정확한 미리보기" 버튼으로 백엔드 합성에서 확인 가능. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Do+Hyeon&display=swap"
+    />
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

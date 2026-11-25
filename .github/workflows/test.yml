@@ -1,0 +1,102 @@
+name: tests
+
+# RenderSpec 단위 테스트 + 골든 매트릭스 테스트(#305, #318, #319, #320) +
+# 키워드 매칭 알고리즘 동등성 검증(#311, #328)을 PR 마다 자동 실행한다.
+# 골든 테스트는 ffmpeg가 필요하므로 setup 단계에서 apt로 설치한다.
+
+on:
+  push:
+    branches: [main, test]
+  pull_request:
+    branches: [main, test, "feature/**"]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    # GitHub Actions 는 기본적으로 `CI=true` 를 설정하지만 명시적으로 한 번 더 선언해
+    # 골든 테스트(#320) 의 자동 시드 차단 분기가 확실히 동작하게 한다.
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node.js
+        # #328 — verify_keyword_matching_parity.mjs는 Node만으로 실행되므로
+        # 추가 의존성 설치 없이 setup-node만 잡으면 된다.
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ffmpeg
+        # 골든 테스트(#305)가 실제 ffmpeg를 실행해 PNG 프레임을 추출한다.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          ffmpeg -version | head -n 1
+
+      - name: Install Python dependencies
+        # pytest + pydantic + pillow 만 있어도 render_spec/golden 테스트가 돈다.
+        # scikit-image 는 SSIM 보조 지표(#319) 의 정확한 산출용. 미설치 시 폴백 구현이
+        # 자동으로 동작하므로 실패하지 않지만, CI 에서는 정확한 SSIM 을 위해 설치한다.
+        # fastapi + httpx 는 #306 의 effect_catalog API 테스트가 TestClient 를 쓰기 때문에 필요.
+        # rapidfuzz 는 #311/#328 키워드 매칭 parity 테스트 (fixture 재생성용).
+        # jsonpatch 는 #315 NL 편집 엔진의 RFC 6902 patch 적용용.
+        # 프로젝트 전체 deps(uv-lock 기준)를 깔지 않고 가벼운 pip 설치만 한다.
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pydantic pillow scikit-image fastapi httpx python-multipart rapidfuzz jsonpatch python-dotenv
+
+      - name: Run unit tests (render_spec)
+        run: pytest tests/render_spec/ -v
+
+      - name: Run keyword matching parity (#311, #328) — backend
+        # fixture 재생성 + 백엔드 _match_keyword 출력 형태 회귀 방지.
+        # 이 단계가 통과해야 다음 mjs 검증이 fixture를 읽을 수 있다.
+        run: pytest tests/test_keyword_matching_parity.py -v
+
+      - name: Run keyword matching parity (#311, #328) — TS mirror drift + score
+        # verify_keyword_matching_parity.mjs:
+        #   1) TS 원본과 스크립트 미러 본문 drift detection (exit 3)
+        #   2) 백엔드 fixture와 TS 알고리즘 결과 동등성 검증 (exit 1)
+        # 두 검사 모두 통과해야 0 반환.
+        run: node scripts/verify_keyword_matching_parity.mjs
+
+      - name: Run simple render geometry fixture (#309/#343/#344) — backend
+        # 백엔드 builder geometry → fixture(JSON) 자동 갱신 + 결정성 검증.
+        # mjs 단계가 이 fixture 를 읽어 CSS 등가를 비교한다.
+        run: pytest tests/test_simple_render_geometry_fixture.py tests/test_client_simple_render_parity.py -v
+
+      - name: Run simple render parity (#344) — TS mirror drift + CSS equivalence
+        # verify_simple_render_parity.mjs:
+        #   1) clientSceneRenderer.ts / isSimpleRenderSpec.ts 의 핵심 식 drift detection (exit 3)
+        #   2) fixture geometry → applySimpleRenderTransform 미러 결과의 CSS 백분율 등가 (exit 1)
+        #   3) #343 회귀 가드 — filter/motion 추가 시 isSimpleRenderSpec 가 false 인지 확인
+        run: node scripts/verify_simple_render_parity.mjs
+
+      - name: Run overlay render parity (#310) — judge + position equivalence
+        # verify_overlay_render_parity.mjs:
+        #   1) isOverlayRenderSpec.ts 의 핵심 식 drift detection (exit 3)
+        #   2) text/shape/graphic + video 조합의 판정 결과 (exit 1)
+        #   3) RenderSpec 절대 픽셀 좌표 → CSS % 환산 정확도
+        run: node scripts/verify_overlay_render_parity.mjs
+
+      - name: Run golden tests (#305, #318, #319, #320)
+        # 픽셀 비교가 실패하면 _failures/ 디렉토리에 actual/expected/diff PNG가 생성된다.
+        # 다음 step에서 아티팩트로 업로드한다.
+        # CI=true 환경에서는 expected 자동 시드가 차단되어 누락 PNG 는 명확한 에러로
+        # 실패한다(#320).
+        run: pytest tests/golden/ -v
+
+      - name: Upload golden failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: tests/golden/_failures/
+          if-no-files-found: ignore
+          retention-days: 7
