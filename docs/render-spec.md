@@ -1,6 +1,6 @@
 # RenderSpec — 씬 카드 정규화 명세
 
-> 도입 이슈: https://github.com/reddol18/video_agent/issues/302
+> 도입 이슈: 내부 이슈 #302
 > 도입일: 2026-05-29
 > 담당: 노팀장
 

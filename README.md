@@ -153,7 +153,7 @@ cd web/frontend && npm run dev
   - 코멘트 처리가 끝나면 완료 처리(`resolve`)까지 합니다.
 - 요청 예시:
   ```
-  video-agent API 사용법을 먼저 익혀줘. README는 E:/.../video-agent/README.md 5장,
+  video-agent API 사용법을 먼저 익혀줘. README는 <저장소 경로>/README.md 5장,
   명세는 http://localhost:8000/openapi.json. 그다음 편집 지시 반영해줘 (프로젝트 ID: ...)
   ```
 
@@ -291,7 +291,7 @@ $env:UV_NO_SYNC='1'; uv run python -m src.watermark "의심파일.mp4"
 PyTorch는 프로젝트 환경에 넣지 않고 따로 둡니다. 기본 위치는 저장소 두 단계 위의 `wm-lab/`입니다.
 
 ```powershell
-cd E:\claude-dev            # 저장소(base\video-agent)의 두 단계 위
+cd ..\..                    # 저장소 폴더에서 두 단계 위로
 mkdir wm-lab; cd wm-lab
 uv venv --python 3.12
 uv pip install --python .venv\Scripts\python.exe torch torchvision --index-url https://download.pytorch.org/whl/cu126
@@ -315,7 +315,6 @@ uv pip install --python .venv\Scripts\python.exe -r videoseal\requirements.txt r
 - 수치는 비트 일치율입니다. **0.70 이상이면 "있음"으로 판정**합니다.
 - 워터마크가 없는 영상 124개 구간에서는 평균 0.495, 최대 0.582가 나왔습니다. 0.70 기준에서 오탐률은 이론상 약 3×10⁻¹¹입니다.
 - 샘플은 이 도구로 만든 실제 영상입니다.
-- 자세한 수치는 https://github.com/reddol18/video_agent/issues/409 와 https://github.com/reddol18/video_agent/issues/410 에 있습니다.
 
 **재압축·축소·크롭**
 

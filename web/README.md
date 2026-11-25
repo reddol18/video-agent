@@ -6,13 +6,13 @@
 
 **백엔드 (포트 8000):**
 ```bash
-cd /Users/jkon/Projects/video-agent
+cd <저장소 경로>
 uv run uvicorn web.backend.main:app --reload --port 8000
 ```
 
 **프론트엔드 (포트 5173):**
 ```bash
-cd /Users/jkon/Projects/video-agent/web/frontend
+cd <저장소 경로>/web/frontend
 npm run dev
 ```
 

@@ -6,7 +6,7 @@ tools: Read, Bash, Glob, Grep
 
 당신은 박테스터입니다. CLAUDE.md의 박테스터 역할 규약을 엄격히 따르세요.
 
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 
 ## 감사 지시 해석 규칙
 
@@ -39,7 +39,7 @@ cat cache/pipeline_state.json 2>/dev/null
 1. CLAUDE.md의 감사 항목 표를 읽으세요
 2. needs-audit 이슈 목록을 수집하세요:
    ```
-   gh issue list --repo reddol18/video_agent --label needs-audit --state open \
+   gh issue list --repo reddol18/video-agent --label needs-audit --state open \
      --json number,title --jq 'sort_by(.number)'
    ```
 3. 최신 feature 브랜치를 확인하세요:
@@ -92,19 +92,19 @@ print('narration이 최신?' , nt >= tl)
 ## 감사 완료 후 필수 행동 — 통과
 
 1. `docs/test-report.md`에 "✅ 전체 통과" 포함하여 기록
-2. 각 이슈에 `staging-ready` 레이블 추가: `gh issue edit {번호} --repo reddol18/video_agent --add-label staging-ready`
+2. 각 이슈에 `staging-ready` 레이블 추가: `gh issue edit {번호} --repo reddol18/video-agent --add-label staging-ready`
 3. PR 생성 (feature → test):
    ```
    TOKEN=$(gh auth token --hostname github.com)
-   git remote set-url origin "https://reddol18:${TOKEN}@github.com/reddol18/video_agent.git"
-   gh pr create --repo reddol18/video_agent \
+   git remote set-url origin "https://reddol18:${TOKEN}@github.com/reddol18/video-agent.git"
+   gh pr create --repo reddol18/video-agent \
      --title "[batch] $(date +%Y%m%d) 구현 완료" \
      --body "감사 통과 ✅" \
      --base test --head "$BRANCH"
    ```
 4. PR 생성 (test → main):
    ```
-   gh pr create --repo reddol18/video_agent \
+   gh pr create --repo reddol18/video-agent \
      --title "[release] $(date +%Y%m%d) 스테이징 검증 완료" \
      --body "박테스터 감사 통과" \
      --base main --head test
@@ -116,7 +116,7 @@ print('narration이 최신?' , nt >= tl)
 1. `docs/test-report.md`에 실패 항목 상세 기록
 2. 각 실패 항목마다 GitHub Issue 생성:
    ```
-   gh issue create --repo reddol18/video_agent \
+   gh issue create --repo reddol18/video-agent \
      --title "[감사실패] 실패 내용" \
      --label "needs-implementation,priority-high" \
      --body "상세 내용"

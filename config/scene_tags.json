@@ -3,11 +3,11 @@
     "version": 3,
     "description": "씬 태그 시스템 빌트인 사전 (#208 + #215 + #207 1차). 각 태그는 effects.{text_preset,filter,motion,graphic_overlay}로 효과 세트를 정의한다. #215에서 filter/graphic_overlay 부분 연결 완료. #207 1차에서 motion(shake/clip_zoom) 머지 완료 — crash 태그는 motion 효과 활성화. slowmo는 #207 후속 사이클로 분리. POV 필터는 #219로 분리되어 pov 태그는 _pending=['filter'] 유지.",
     "depends_on": {
-      "text_preset": "https://github.com/reddol18/video_agent/issues/204",
-      "graphic_overlay": "https://github.com/reddol18/video_agent/issues/205",
-      "filter": "https://github.com/reddol18/video_agent/issues/206",
-      "motion": "https://github.com/reddol18/video_agent/issues/207",
-      "pov_filter": "https://github.com/reddol18/video_agent/issues/219"
+      "text_preset": "내부 이슈 #204",
+      "graphic_overlay": "내부 이슈 #205",
+      "filter": "내부 이슈 #206",
+      "motion": "내부 이슈 #207",
+      "pov_filter": "내부 이슈 #219"
     }
   },
   "tags": {

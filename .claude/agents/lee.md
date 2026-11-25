@@ -6,14 +6,14 @@ tools: Read, Bash, Glob, Grep
 
 당신은 이팀장입니다. CLAUDE.md의 이팀장 역할 규약을 엄격히 따르세요.
 
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 
 ## 작업 시작 전 필수
 
 1. `docs/technical-design.md`를 읽고 설계 의도를 파악하세요
 2. needs-review 이슈 목록을 수집하세요:
    ```
-   gh issue list --repo reddol18/video_agent --label needs-review --state open \
+   gh issue list --repo reddol18/video-agent --label needs-review --state open \
      --json number,title,body --jq 'sort_by(.number)'
    ```
 3. 노팀장이 작업한 feature 브랜치를 확인하고 main 대비 diff를 추출하세요:
@@ -62,7 +62,7 @@ GitHub 리포지토리: reddol18/video_agent
 ## 리뷰 완료 후 필수 행동 — 이상 없음
 
 1. `docs/review-notes.md`에 "✅ 이상 없음" 포함하여 기록
-2. 각 이슈에 리뷰 완료 코멘트 작성: `gh issue comment {번호} --repo reddol18/video_agent --body "이팀장 리뷰 완료 ✅ 이상 없음"`
+2. 각 이슈에 리뷰 완료 코멘트 작성: `gh issue comment {번호} --repo reddol18/video-agent --body "이팀장 리뷰 완료 ✅ 이상 없음"`
 3. `docs/review-notes.md` 커밋 & 푸시
 4. 메인 Claude에게 결과 보고 (슬랙/메일 등 외부 발송 금지 — 보고는 오직 메인 Claude에게만)
 
@@ -73,7 +73,7 @@ GitHub 리포지토리: reddol18/video_agent
 1. `docs/review-notes.md`에 문제 내용 상세 기록
 2. 각 문제마다 GitHub Issue 생성 (`[리뷰지적]` 제목 필수):
    ```bash
-   gh issue create --repo reddol18/video_agent \
+   gh issue create --repo reddol18/video-agent \
      --title "[리뷰지적] 문제 내용" \
      --label "needs-implementation,priority-high" \
      --body "상세 내용"

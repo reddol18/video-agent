@@ -20,7 +20,7 @@ fi
 
 # needs-implementation 이슈 확인
 ISSUE_COUNT=$(gh issue list \
-  --repo reddol18/video_agent \
+  --repo reddol18/video-agent \
   --label "needs-implementation" \
   --state open \
   --json number \
@@ -40,7 +40,7 @@ git checkout "$BRANCH" 2>/dev/null || git checkout -b "$BRANCH" origin/main 2>/d
 
 # 이슈 목록 수집
 ISSUES=$(gh issue list \
-  --repo reddol18/video_agent \
+  --repo reddol18/video-agent \
   --label "needs-implementation" \
   --state open \
   --json number,title,body,labels \
@@ -58,7 +58,7 @@ claude --dangerously-skip-permissions -p "
 당신은 노팀장입니다. CLAUDE.md의 노팀장 역할 규약을 따르세요.
 
 현재 브랜치: $BRANCH
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 
 ## 처리할 이슈 목록 (우선순위 순)
 $ISSUES

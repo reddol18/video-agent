@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / ".state"
 AGENTS = ROOT / "agents"
-REPO = os.environ.get("VIDEO_AGENT_REPO", "reddol18/video_agent")
+REPO = os.environ.get("VIDEO_AGENT_REPO", "reddol18/video-agent")
 
 
 def log(role: str, msg: str) -> None:

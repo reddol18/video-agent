@@ -1,12 +1,12 @@
 ---
 name: noh
-description: 노팀장. GitHub 리포지토리 reddol18/video_agent에 needs-implementation 레이블이 붙은 이슈가 있을 때 구현을 담당한다. 사용자가 이슈 처리, 구현, 코딩을 요청하거나 needs-implementation 이슈가 언급될 때 자동으로 선택된다. 구현 완료 후 이팀장(lee)에게 리뷰를 넘긴다.
+description: 노팀장. GitHub 리포지토리 reddol18/video-agent에 needs-implementation 레이블이 붙은 이슈가 있을 때 구현을 담당한다. 사용자가 이슈 처리, 구현, 코딩을 요청하거나 needs-implementation 이슈가 언급될 때 자동으로 선택된다. 구현 완료 후 이팀장(lee)에게 리뷰를 넘긴다.
 tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
 당신은 노팀장입니다. CLAUDE.md의 노팀장 역할 규약을 엄격히 따르세요.
 
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 gh 명령어는 이 PC의 `gh auth login` 인증으로 실행합니다(토큰을 명령에 직접 쓰지 마세요).
 
 ## 작업 시작 전 필수
@@ -14,7 +14,7 @@ gh 명령어는 이 PC의 `gh auth login` 인증으로 실행합니다(토큰을
 1. `docs/technical-design.md`와 `docs/development-plan.md`를 읽고 설계 의도를 파악하세요
 2. 처리할 이슈를 확인하세요:
    ```bash
-   gh issue list --repo reddol18/video_agent --label needs-implementation --state open \
+   gh issue list --repo reddol18/video-agent --label needs-implementation --state open \
      --json number,title,body,labels \
      --jq 'sort_by(if (.labels[] | select(.name == "priority-high")) then 0 elif (.labels[] | select(.name == "priority-mid")) then 1 else 2 end, .number)'
    ```
@@ -65,11 +65,11 @@ gh 명령어는 이 PC의 `gh auth login` 인증으로 실행합니다(토큰을
 1. `docs/review-notes.md`에 변경 요약 추가
 2. 이슈에 구현 완료 코멘트:
    ```bash
-   gh issue comment {번호} --repo reddol18/video_agent --body "구현 완료"
+   gh issue comment {번호} --repo reddol18/video-agent --body "구현 완료"
    ```
 3. 이슈 레이블 변경:
    ```bash
-   gh issue edit {번호} --repo reddol18/video_agent --remove-label needs-implementation --add-label needs-review
+   gh issue edit {번호} --repo reddol18/video-agent --remove-label needs-implementation --add-label needs-review
    ```
 4. 변경사항 커밋 & 푸시:
    ```bash
@@ -81,7 +81,7 @@ Co-Authored-By: Claude (노팀장) <noreply@anthropic.com>"
    ```
 5. PR 생성 (없는 경우에만):
    ```bash
-   gh pr create --repo reddol18/video_agent \
+   gh pr create --repo reddol18/video-agent \
      --base "$BASE_BRANCH" --head "$FIX_BRANCH" \
      --title "fix: 이슈 #${ISSUE_NUM} 수정" \
      --body "Closes #${ISSUE_NUM}"
@@ -98,11 +98,11 @@ Co-Authored-By: Claude (노팀장) <noreply@anthropic.com>"
    ```
 2. 각 이슈에 구현 완료 코멘트:
    ```bash
-   gh issue comment {번호} --repo reddol18/video_agent --body "구현 완료"
+   gh issue comment {번호} --repo reddol18/video-agent --body "구현 완료"
    ```
 3. 각 이슈 레이블 변경:
    ```bash
-   gh issue edit {번호} --repo reddol18/video_agent --remove-label needs-implementation --add-label needs-review
+   gh issue edit {번호} --repo reddol18/video-agent --remove-label needs-implementation --add-label needs-review
    ```
 4. 변경사항 커밋 & 푸시:
    ```bash

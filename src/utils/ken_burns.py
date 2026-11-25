@@ -10,7 +10,7 @@ def _imread(img_path, flags=cv2.IMREAD_COLOR):
     """한글 등 비ASCII 경로에서도 읽히는 imread.
 
     윈도우의 cv2.imread 는 비ASCII 경로를 못 열고 None 을 돌려준다
-    (실측 2026-11-05: 'E:/claude-dev/호박이환풍기업그레이드/*.png' → 켄번스 씬 2개 생성 실패).
+    (실측 2026-11-05: '<로컬 폴더>/*.png' → 켄번스 씬 2개 생성 실패).
     파일을 바이트로 읽어 imdecode 하면 경로 인코딩과 무관하다.
     """
     try:

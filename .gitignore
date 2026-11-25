@@ -74,3 +74,13 @@ assets/sfx_presets/mouse-click/mouse-click_imported.wav
 /projects2/
 /projects3/
 /yolov8n.pt
+
+# 루트 작업 파일(로컬 전용)
+/ch8.txt
+/issue_body.md
+/fcpxml_issue_body.md
+/footage_orders.txt
+/sample_scenario*.bak
+/sample_scenario2*.txt
+/sample_scenario_converted.txt
+/vlcsnap-*.png

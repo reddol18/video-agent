@@ -2,7 +2,7 @@
 
 # 1. 세션 이름 및 경로 설정
 SESSION="video_agents"
-PROJECT_DIR="/Users/jkon/Projects/video-agent"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # 2. 기존 세션이 있는지 확인 (있으면 바로 접속)
 tmux has-session -t $SESSION 2>/dev/null

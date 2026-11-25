@@ -30,7 +30,7 @@ log "감사 요청 감지. 테스트 시작."
 
 # needs-audit 이슈 목록
 ISSUES=$(gh issue list \
-  --repo reddol18/video_agent \
+  --repo reddol18/video-agent \
   --label "needs-audit" \
   --state open \
   --json number,title \
@@ -51,7 +51,7 @@ AUDIT_OUTPUT=$(claude --dangerously-skip-permissions -p "
 당신은 박테스터입니다. CLAUDE.md의 박테스터 역할 규약을 따르세요.
 
 현재 브랜치: $BRANCH
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 
 ## 감사 대상 이슈
 $ISSUES
@@ -93,10 +93,10 @@ if [ "$RESULT" = "pass" ]; then
 
   # feature → test PR 생성
   TOKEN=$(gh auth token --hostname github.com)
-  git remote set-url origin "https://reddol18:${TOKEN}@github.com/reddol18/video_agent.git"
+  git remote set-url origin "https://reddol18:${TOKEN}@github.com/reddol18/video-agent.git"
 
   PR1_URL=$(gh pr create \
-    --repo reddol18/video_agent \
+    --repo reddol18/video-agent \
     --title "[batch] $(date +%Y%m%d) 구현 완료 — $ISSUE_REFS" \
     --body "## 처리된 이슈
 $(echo "$ISSUES" | jq -r '.[].number' | awk '{print "Closes #"$1}')
@@ -115,7 +115,7 @@ $(grep -A 30 "## $(date +%Y%m%d) 감사" docs/test-report.md | head -30)
 
   # test → main PR 생성
   PR2_URL=$(gh pr create \
-    --repo reddol18/video_agent \
+    --repo reddol18/video-agent \
     --title "[release] $(date +%Y%m%d) 스테이징 검증 완료" \
     --body "## 감사 통과 내역
 $ISSUE_REFS

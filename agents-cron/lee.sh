@@ -38,7 +38,7 @@ DIFF=$(git diff origin/main...HEAD -- src/ 2>/dev/null | head -c 6000)
 
 # needs-review 이슈 목록
 ISSUES=$(gh issue list \
-  --repo reddol18/video_agent \
+  --repo reddol18/video-agent \
   --label "needs-review" \
   --state open \
   --json number,title,body \
@@ -51,7 +51,7 @@ REVIEW_OUTPUT=$(claude --dangerously-skip-permissions -p "
 당신은 이팀장입니다. CLAUDE.md의 이팀장 역할 규약을 따르세요.
 
 현재 브랜치: $BRANCH
-GitHub 리포지토리: reddol18/video_agent
+GitHub 리포지토리: reddol18/video-agent
 
 ## 리뷰 대상 이슈
 $ISSUES
